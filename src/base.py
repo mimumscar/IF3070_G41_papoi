@@ -1,6 +1,7 @@
 import copy
 
 # ref: https://github.com/hellerbarde/BinPack/blob/master/binpack/item.py
+
 class Vehicle:
     def __init__(self, vId: str, width: int, length: int, shippingFee: int, weight: int, eta: int) -> None:
         self.id = vId
@@ -35,6 +36,7 @@ class Ship:
         self.length = length
         self.maxCapacity = maxCapacity
 
+ETA_WEIGHT = 3
 
 class State:
     def __init__(self, ship: Ship, vehicles: list) -> None:
@@ -43,7 +45,8 @@ class State:
 
     def __repr__(self) -> str:
         inShip = [v for v in self.vehicles if v.x is not None]
-        return "State(Total_In_Ship=%s, Objective_Score=%s)" % (len(inShip), self.getObjectiveScore())
+        return "State(Total_In_Ship=%s, ShippingFee=%s, EtaPenalty=%s)" % (
+            len(inShip), self.getShippingFee(), self.getEtaPenalty())
 
     def isValid(self) -> bool:
         totalWeight = 0
@@ -70,9 +73,45 @@ class State:
 
         return True
 
-    def getObjectiveScore(self) -> int:
+    @staticmethod
+    def generateRandomState(ship, vehicles) -> 'State':
+        import random
+        state = State(ship, vehicles)
+        
+        vehicleIndices = list(range(len(state.vehicles)))
+        random.shuffle(vehicleIndices)
+        
+        for idx in vehicleIndices:
+            v = state.vehicles[idx]
+            
+            for _ in range(20):
+                v.orientation = random.choice(['Horizontal', 'Vertical'])
+                w, l = v.getCurrentDimensions()
+                
+                if ship.width >= w and ship.length >= l:
+                    v.x = random.randint(0, ship.width - w)
+                    v.y = random.randint(0, ship.length - l)
+                    
+                    if state.isValid():
+                        break
+                    
+                v.x = None
+                v.y = None
+                
+        return state
+
+    def getShippingFee(self) -> int:
         return sum([v.shippingFee for v in self.vehicles if v.x is not None and v.y is not None])
 
-    def getUrgencyScore(self) -> int:
-        maxEta = 67
-        return sum([(maxEta - v.eta) for v in self.vehicles if v.x is not None and v.y is not None])
+    def getEtaPenalty(self) -> int:
+        placed = [v for v in self.vehicles if v.x is not None]
+        penalty = 0
+        for i in range(len(placed)):
+            for j in range(i + 1, len(placed)):
+                a, b = placed[i], placed[j]
+                if (a.eta < b.eta and a.y > b.y) or (b.eta < a.eta and b.y > a.y):
+                    penalty += 1
+        return penalty
+
+    def getFitness(self) -> int:
+        return self.getShippingFee() - ETA_WEIGHT * self.getEtaPenalty()
