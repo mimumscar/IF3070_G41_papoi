@@ -68,7 +68,6 @@ class State:
                     if (v.x, v.y) != (x, y):
                         moves.append(("move", i, x, y))
             if v.x is not None:
-                moves.append(("remove", i))
                 moves.append(("rotate", i))
             for j in range(i + 1, len(self.vehicles)):
                 if v.x is not None or self.vehicles[j].x is not None:
@@ -79,8 +78,6 @@ class State:
         s = self.clone()
         if move[0] == "move":
             s.moveVehicle(move[1], move[2], move[3])
-        elif move[0] == "remove":
-            s.removeVehicle(move[1])
         elif move[0] == "rotate":
             s.rotateVehicle(move[1])
         else:
