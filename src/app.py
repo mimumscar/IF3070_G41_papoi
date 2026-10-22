@@ -1,5 +1,7 @@
 # Route dan template: https://flask.palletsprojects.com/en/stable/quickstart/
 # API JSON: https://flask.palletsprojects.com/en/stable/patterns/javascript/
+import json
+from pathlib import Path
 from flask import Flask, jsonify, render_template
 from data import SHIP, VEHICLES
 from ga import GA_CONFIGS, GeneticAlgorithm
@@ -7,6 +9,7 @@ from hc import HillClimbing
 from sa import SimulatedAnnealing
 
 app = Flask(__name__)
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "output"
 
 
 def buat_grid(state):
@@ -44,6 +47,11 @@ def buat_hasil(algoritma, akhir, riwayat, nomor=1, tambahan=None):
         "fitness_history": riwayat, "extra": extra,
     }
 
+def output(algoritma, data):
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    filea = OUTPUT_DIR / (algoritma + ".json")
+    with filea.open("w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=2)
 
 @app.route("/")
 def index():
@@ -65,6 +73,7 @@ def run_hill_climbing():
     algoritma = HillClimbing(SHIP, VEHICLES)
     akhir = algoritma.runSteepestAscent()
     hasil = buat_hasil(algoritma, akhir, algoritma.history)
+    output("hc", [hasil])
     return jsonify({"status": "success", "algorithm": "hc", "data": [hasil]})
 
 
@@ -78,6 +87,7 @@ def run_simulated_annealing():
         "acceptance_threshold": 0.5, "stuck_count": algoritma.stuck_count,
     }
     hasil = buat_hasil(algoritma, akhir, algoritma.history, tambahan=tambahan)
+    output("sa", [hasil])
     return jsonify({"status": "success", "algorithm": "sa", "data": [hasil]})
 
 
@@ -98,6 +108,7 @@ def run_genetic_algorithm():
                 "selector_label": "K" + str(i + 1) + "/R" + str(j + 1),
             }
             hasil.append(buat_hasil(algoritma, akhir, algoritma.maxHistory, len(hasil) + 1, tambahan))
+    output("ga", hasil)
     return jsonify({"status": "success", "algorithm": "ga", "data": hasil})
 
 

@@ -1,0 +1,150 @@
+[
+  {
+    "status": "success",
+    "run_id": 1,
+    "initial_fitness": 206,
+    "final_fitness": 209,
+    "shipping_fee": 215,
+    "eta_penalty": 2,
+    "iterasi": 1,
+    "durasi": 0.1173,
+    "initial_state_grid": [
+      [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Astwo",
+        "Astwo",
+        "",
+        "",
+        "Asfor",
+        "Asfor",
+        ""
+      ],
+      [
+        "Astwo",
+        "Astwo",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        ""
+      ],
+      [
+        "",
+        "",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ],
+      [
+        "",
+        "",
+        "",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ],
+      [
+        "Hudi",
+        "Hudi",
+        "Hudi",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ]
+    ],
+    "final_state_grid": [
+      [
+        "",
+        "",
+        "Astwo",
+        "Astwo",
+        "",
+        "",
+        ""
+      ],
+      [
+        "",
+        "",
+        "Astwo",
+        "Astwo",
+        "Asfor",
+        "Asfor",
+        ""
+      ],
+      [
+        "",
+        "",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        ""
+      ],
+      [
+        "",
+        "",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        "Yahu",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ],
+      [
+        "",
+        "",
+        "",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ],
+      [
+        "Hudi",
+        "Hudi",
+        "Hudi",
+        "Budi",
+        "Budi",
+        "Budi",
+        "Budi"
+      ]
+    ],
+    "fitness_history": [
+      206,
+      209
+    ],
+    "extra": {
+      "total_weight": 15,
+      "max_capacity": 15
+    }
+  }
+]
