@@ -90,7 +90,7 @@ def run_genetic_algorithm():
             algoritma = GeneticAlgorithm(SHIP, VEHICLES,
                 populationSize=konfigurasi["populationSize"],
                 generations=konfigurasi["generations"])
-            akhir = algoritma.run()
+            akhir = algoritma.runGeneticAlgorithm()
             tambahan = {
                 "config_id": i, "population_size": konfigurasi["populationSize"],
                 "generations": konfigurasi["generations"],
