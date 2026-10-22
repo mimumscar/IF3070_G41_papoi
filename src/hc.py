@@ -1,7 +1,7 @@
 '''
 ref:
 - PPT Beyond Classical Search IF3070
-- https://github.com/aimacode/aima-python/blob/master/search.py, dari line 941-956
+- https://github.com/aimacode/aima-python/blob/master/aima/search.py, dari line 941-956
 '''
 
 import time

@@ -1,0 +1,63 @@
+/* Grid: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Basic_concepts */
+* { box-sizing: border-box; }
+
+body {
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 16px;
+  font: 14px Arial, sans-serif;
+  color: #222;
+}
+
+nav { line-height: 1.8; }
+a { color: inherit; }
+h1 { font-size: 22px; }
+h2 { font-size: 16px; margin: 20px 0 8px; }
+
+button, select {
+  font: inherit;
+  padding: 6px;
+  max-width: 100%;
+  margin-bottom: 8px;
+}
+button:disabled { cursor: wait; }
+[hidden] { display: none !important; }
+
+/* Layout */
+.states {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.states section { min-width: 0; }
+
+.grid {
+  display: grid;
+  gap: 1px;
+  background: #bbb;
+  border: 1px solid #bbb;
+}
+.grid div {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  font-size: 11px;
+  overflow: hidden;
+}
+
+/* Warna per nama */
+.grid .Budi  { background: #f6bd60; }
+.grid .Aswan { background: #84dcc6; }
+.grid .Astwo { background: #f28482; }
+.grid .Astri { background: #a9def9; }
+.grid .Asfor { background: #cdb4db; }
+.grid .Yahu  { background: #b8d99a; }
+.grid .Hudi  { background: #f7d794; }
+
+.chart { position: relative; height: 260px; }
+#error { color: #a00; }
+
+@media (max-width: 600px) {
+  .states { grid-template-columns: 1fr; }
+}

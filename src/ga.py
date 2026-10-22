@@ -1,7 +1,7 @@
 '''
 ref:
 - PPT Beyond Classical Search IF3070 (Genetic Algorithm)
-- https://github.com/aimacode/aima-python/blob/master/search.py
+- https://github.com/aimacode/aima-python/blob/master/aima/search.py
 '''
 
 import random

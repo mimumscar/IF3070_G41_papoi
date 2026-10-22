@@ -1,0 +1,42 @@
+{# Template: https://flask.palletsprojects.com/en/stable/tutorial/templates/ #}
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body data-kind="{{ kind }}" data-endpoint="{{ endpoint }}">
+  <nav><a href="/">Hill Climbing</a> · <a href="/sa">Simulated Annealing</a> · <a href="/ga">Genetic Algorithm</a></nav>
+  <h1>{{ title }}</h1>
+  <button id="run-btn" type="button">Jalankan</button>
+  {% if kind == 'ga' %}
+  <select id="run-select" aria-label="Pilih hasil GA" hidden></select>
+  {% endif %}
+  <p id="error" role="alert" hidden></p>
+  <div class="states">
+    <section><h2>Posisi awal</h2><div id="initial-state-container" class="grid">Belum ada hasil</div></section>
+    <section><h2>Posisi akhir</h2><div id="final-state-container" class="grid">Belum ada hasil</div></section>
+  </div>
+  <section id="result-area" hidden>
+    <p>Nilai awal: <span id="stat-initial"></span> · Nilai akhir: <span id="stat-final"></span></p>
+    <p>Pendapatan: <span id="stat-fee"></span> · Penalti ETA: <span id="stat-eta"></span></p>
+    <p>Jumlah iterasi / generasi: <span id="stat-iterations"></span> · Waktu: <span id="stat-duration"></span> detik</p>
+    {% if kind == 'ga' %}
+    <p>Jumlah populasi: <span id="stat-population"></span></p>
+    <h2>Nilai terbaik dan rata-rata per generasi</h2>
+    {% else %}
+    <h2>Nilai (fitness) per iterasi</h2>
+    {% endif %}
+    <div class="chart"><canvas id="fitness-chart"></canvas></div>
+    {% if kind == 'sa' %}
+    <p>Berat / kapasitas: <span id="stat-capacity"></span> · Frekuensi stuck: <span id="stat-stuck"></span></p>
+    <h2>Peluang menerima perubahan per iterasi</h2>
+    <div class="chart"><canvas id="acceptance-chart"></canvas></div>
+    {% endif %}
+  </section>
+</body>
+</html>

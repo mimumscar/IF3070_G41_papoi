@@ -3,8 +3,9 @@ import random
 import time
 from base import State
 
-#referensiL 
-# - 
+#referensi
+# - https://github.com/aimacode/aima-python/blob/master/aima/search.py
+
 class SimulatedAnnealing:
     def __init__(self, ship, vehicles, iterations=500, temperature=100.0, cooling=0.99):
         self.initialState = State.generateRandomState(ship, vehicles)
