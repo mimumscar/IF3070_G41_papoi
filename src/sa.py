@@ -40,6 +40,7 @@ class SimulatedAnnealing:
         self.current_history = [current.getFitness()]
         self.acceptance_history = []
         self.stuck_count = 0
+        same_score = 0
 
         for i in range(self.iterations):
             candidate = self.randomNeighbor(current)
@@ -48,11 +49,14 @@ class SimulatedAnnealing:
 
             if random.random() < prob:
                 current = candidate
-            else:
-                self.stuck_count += 1
 
             if current.getFitness() > best.getFitness():
                 best = current.clone()
+                same_score = 0
+            else:
+                same_score += 1
+                if same_score == 10:
+                    self.stuck_count += 1
 
             self.history.append(best.getFitness())
             self.current_history.append(current.getFitness())
